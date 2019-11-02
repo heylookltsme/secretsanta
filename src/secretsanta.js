@@ -43,7 +43,7 @@ const generateAssignments = () => {
 const sendSms = (name) => {
   const message = `Hi there, ${_.capitalize(
     name,
-  )}! Your 2019 Secret Santa assignment is: ${_.capitalize(
+  )}! Your ${new Date().getFullYear()} Secret Santa assignment is: ${_.capitalize(
     assignments[name],
   )}! Please buy them an awesome gift worth up
     to $50! See you at Christmas!!! 🎁🎄❄️`;
@@ -65,7 +65,7 @@ while (
   generateAssignments();
 }
 
-// If executed with --send-sms, then actually send the assignments out via sms.
+// If it's not a test run, then actually send the assignments out via sms.
 if (!isTestRun) {
   _.forEach(assignments, (value, key) => {
     sendSms(key);
