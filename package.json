@@ -6,6 +6,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "esm": "^3.2.25",
     "lodash": "^4.17.4",
     "prettier": "^1.18.2",
     "twilio": "^3.9.2"
