@@ -8,29 +8,29 @@
  * should _not_ be assigned. (e.g., people who would be buying gifts for each
  * other anyway, etc.)
  */
-module.exports = {
-    blanche: {
-        phone: '1555999888',
-        exclude: [],
-    },
-    dorothy: {
-        phone: '1555999888',
-        exclude: ['stan'],
-    },
-    rose: {
-        phone: '1555999888',
-        exclude: ['miles'],
-    },
-    sophia: {
-        phone: '1555999888',
-        exclude: [],
-    },
-    stan: {
-        phone: '1555999888',
-        exclude: [],
-    },
-    miles: {
-        phone: '1555999888',
-        exclude: ['rose'],
-    },
+export default {
+  blanche: {
+    phone: '1555999888',
+    exclude: [],
+  },
+  dorothy: {
+    phone: '1555999888',
+    exclude: ['stan'],
+  },
+  rose: {
+    phone: '1555999888',
+    exclude: ['miles'],
+  },
+  sophia: {
+    phone: '1555999888',
+    exclude: [],
+  },
+  stan: {
+    phone: '1555999888',
+    exclude: [],
+  },
+  miles: {
+    phone: '1555999888',
+    exclude: ['rose'],
+  },
 };
