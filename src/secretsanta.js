@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import * as _ from 'lodash';
 import Twilio from 'twilio';
 import config from '../config';
