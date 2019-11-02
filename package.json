@@ -5,6 +5,10 @@
   "main": "src/secretsanta.js",
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "santa-test": "node -r esm ./src/secretsanta.js --test",
+    "santa": "node -r esm ./src/secretsanta.js > secret-santa-assignments.txt"
+  },
   "dependencies": {
     "esm": "^3.2.25",
     "lodash": "^4.17.4",
