@@ -46,7 +46,8 @@ const sendSms = (name) => {
   )}! Your ${new Date().getFullYear()} Secret Santa assignment is: ${_.capitalize(
     assignments[name],
   )}! Please buy them an awesome gift worth up
-    to $50! See you at Christmas!!! 🎁🎄❄️`;
+    to $50 and ship it to their address: ${peeps[name].address}.
+    See you on zoom at Christmas!!! 🎁🎄❄️`;
 
   twilioClient.messages
     .create({
