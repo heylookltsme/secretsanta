@@ -1,50 +1,46 @@
-import * as _ from 'lodash';
-import Twilio from 'twilio';
-import config from '../config';
-import peeps from '../people';
+import twilio from 'twilio';
+import config from './config';
+import peeps from './people';
 
 const isTestRun = process.argv.includes('--test');
-
-const twilioClient = new Twilio(
-  config.twilio.accountSid,
-  config.twilio.authToken,
-);
-
-const assignments = {};
+const twilioClient = twilio(config.twilio.accountSid, config.twilio.authToken);
+const assignments: { [key: string]: string } = {};
 
 /**
  * Create a specific secret santa assignment for the given name.
- *
- * @param {string} name - The person to be assigned.
  */
-const assign = (name) => {
+const assign = (name: string) => {
   // Determine exclusions: the person's exclude key + all those already assigned
-  const exclusions = [name].concat(peeps[name].exclude, _.values(assignments));
+  const exclusions = [name].concat(
+    peeps[name].exclude,
+    Object.values(assignments)
+  );
   // The assignment options are everyone not excluded.
-  const assignmentOptions = _.difference(_.keys(peeps), exclusions);
+  const assignmentOptions = Object.keys(peeps).filter(
+    (name) => !exclusions.includes(name)
+  );
   // Pick an assignment at random.
-  assignments[name] = _.shuffle(assignmentOptions).shift();
+  assignments[name] =
+    assignmentOptions[Math.floor(Math.random() * assignmentOptions.length)];
 };
 
 /**
  * Generate all the secret santa assignments.
  */
 const generateAssignments = () => {
-  _.forEach(peeps, (value, name) => {
+  Object.keys(peeps).forEach((name) => {
     assign(name);
   });
 };
 
 /**
  * Send a text with the secret santa assignment.
- *
- * @param {string} name - The person to text.
  */
-const sendSms = (name) => {
-  const message = `Hi there, ${_.capitalize(
-    name,
-  )}! Your ${new Date().getFullYear()} Secret Santa assignment is: ${_.capitalize(
-    assignments[name],
+const sendSms = (name: string) => {
+  const message = `Hi there, ${capitalize(
+    name
+  )}! Your ${new Date().getFullYear()} Secret Santa assignment is: ${capitalize(
+    assignments[name]
   )}! Please buy them an awesome gift worth up
     to $50 and ship it to their address: ${peeps[name].address}.
     See you on zoom at Christmas!!! 🎁🎄❄️`;
@@ -55,20 +51,15 @@ const sendSms = (name) => {
       to: `+${peeps[name].phone}`,
       from: config.twilio.phoneNumber,
     })
-    .then((m) => console.log(m.sid));
+    .then((m: any) => console.log(m.sid));
 };
 
 // Generate the assignments
-while (
-  _.isEmpty(assignments)
-  || _.values(assignments).indexOf(undefined) >= 0
-) {
-  generateAssignments();
-}
+generateAssignments();
 
 // If it's not a test run, then actually send the assignments out via sms.
 if (!isTestRun) {
-  _.forEach(assignments, (value, key) => {
+  Object.keys(assignments).forEach((key) => {
     sendSms(key);
     console.log(`sent sms to ${key}`);
   });
@@ -79,3 +70,9 @@ if (isTestRun) {
   console.log('Test run assignments:');
 }
 console.log(assignments);
+
+/**
+ * Utility function to capitalize a string.
+ */
+const capitalize = (s: string) =>
+  s.length ? s[0].toUpperCase() + s.slice(1) : s;

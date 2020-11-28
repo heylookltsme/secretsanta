@@ -8,7 +8,18 @@
  * should _not_ be assigned. (e.g., people who would be buying gifts for each
  * other anyway, etc.)
  */
-export default {
+
+interface Person {
+  phone: string;
+  address?: string;
+  exclude: Array<string>;
+}
+
+interface People {
+  [key: string]: Person;
+}
+
+const people: People = {
   blanche: {
     phone: '1555999888',
     exclude: [],
@@ -34,3 +45,5 @@ export default {
     exclude: ['rose'],
   },
 };
+
+export default people;

@@ -1,4 +1,5 @@
-config.js
-people.js
+dist/
+src/config.ts
+src/people.ts
 node_modules/
 secret-santa-assignments.txt
