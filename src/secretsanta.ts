@@ -7,6 +7,14 @@ const twilioClient = twilio(config.twilio.accountSid, config.twilio.authToken);
 const assignments: { [key: string]: string } = {};
 
 /**
+ * Utility function to capitalize a string.
+ */
+const capitalize = (s: string) => {
+  if (!s) return '';
+  return s.length ? s[0].toUpperCase() + s.slice(1) : s;
+};
+
+/**
  * Create a specific secret santa assignment for the given name.
  */
 const assign = (name: string) => {
@@ -42,13 +50,15 @@ const sendSms = (name: string) => {
   )}! Your ${new Date().getFullYear()} Secret Santa assignment is: ${capitalize(
     assignments[name]
   )}! Please buy them an awesome gift worth up
-    to $50 and ship it to their address: ${peeps[name].address}.
-    See you on zoom at Christmas!!! 🎁🎄❄️`;
+    to $50. If you need to ship it, their address is: ${
+      peeps[assignments[name]].address
+    }.
+    Merry Christmas!!! 🎁🎄❄️`;
 
   twilioClient.messages
     .create({
       body: message,
-      to: `+${peeps[name].phone}`,
+      to: `${peeps[name].phone}`,
       from: config.twilio.phoneNumber,
     })
     .then((m: any) => console.log(m.sid));
@@ -70,9 +80,3 @@ if (isTestRun) {
   console.log('Test run assignments:');
 }
 console.log(assignments);
-
-/**
- * Utility function to capitalize a string.
- */
-const capitalize = (s: string) =>
-  s.length ? s[0].toUpperCase() + s.slice(1) : s;
