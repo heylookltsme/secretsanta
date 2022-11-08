@@ -50,10 +50,7 @@ const sendSms = (name: string) => {
   )}! Your ${new Date().getFullYear()} Secret Santa assignment is: ${capitalize(
     assignments[name]
   )}! Please buy them an awesome gift worth up
-    to $50. If you need to ship it, their address is: ${
-      peeps[assignments[name]].address
-    }.
-    Merry Christmas!!! 🎁🎄❄️`;
+    to $50. Merry Christmas!!! 🎁🎄❄️`;
 
   twilioClient.messages
     .create({
