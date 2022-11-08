@@ -51,12 +51,12 @@ const generateAssignments = () => {
  * Send a text with the secret santa assignment.
  */
 const sendSms = (name: string) => {
-  const message = `Hi there, ${capitalize(
+  const message = `🎄 Hey ${capitalize(
     name
-  )}! Your ${new Date().getFullYear()} Secret Santa assignment is: ${capitalize(
-    assignments[name]
-  )}! Please buy them an awesome gift worth up
-    to $50. Merry Christmas!!! 🎁🎄❄️`;
+  )}! It's the most wonderful time of the year!! 🎄\n\nYour ${new Date().getFullYear()} Secret Santa assignment is:\n\n${assignments[
+    name
+  ].toUpperCase()}!\n\nPlease buy them an awesome gift worth up to $50.\n\n🎅 HO HO HO! 🎅
+  `;
 
   twilioClient.messages
     .create({
