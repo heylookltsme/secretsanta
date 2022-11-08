@@ -27,6 +27,12 @@ const assign = (name: string) => {
   const assignmentOptions = Object.keys(peeps).filter(
     (name) => !exclusions.includes(name)
   );
+
+  // If there are no assignment options left, then we need to bail.
+  if (assignmentOptions.length === 0) {
+    throw new Error(`No one is left for ${capitalize(name)}! 🙀`);
+  }
+
   // Pick an assignment at random.
   assignments[name] =
     assignmentOptions[Math.floor(Math.random() * assignmentOptions.length)];
