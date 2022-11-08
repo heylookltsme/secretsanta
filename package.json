@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc --esModuleInterop --rootDir ./src/ --outDir ./dist/ ./src/secretsanta.ts",
     "santa-test": "yarn run build && node -r esm ./dist/secretsanta.js --test",
-    "santa": "yarn run build node -r esm ./dist/secretsanta.js > secret-santa-assignments.txt"
+    "santa": "yarn run build && node -r esm ./dist/secretsanta.js > secret-santa-assignments.txt"
   },
   "dependencies": {
     "twilio": "^3.9.2"
